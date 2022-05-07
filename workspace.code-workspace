@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "..\\..\\..\\portfolio-site"
+		},
+		{
+			"path": "..\\cresta_first"
+		},
+		{
+			"path": "..\\..\\sass02"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "cresta_second"
+	}
+}

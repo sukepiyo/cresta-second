@@ -1,0 +1,445 @@
+//variable
+$color-text-main: #171717;
+$color-black: #333;
+$color-white: #fff;
+
+//mixin
+// メディアクエリ
+@mixin mq-desktop {
+	@media (min-width: 768px) {
+		@content;
+	}
+}
+
+/* 可変フォントサイズ*/
+@mixin variable-text($font-min, $font-max, $display-max) {
+	font-size: clamp($font-min * 1rem, ($font-max * 10 / $display-max) * 100vw, $font-max * 1rem);
+}
+
+/* --------------------------------- */
+/* base */
+/* --------------------------------- */
+html {
+	font-size: 62.5%;
+	scroll-behavior: smooth;
+}
+
+body {
+	font-size: 1.6rem;
+	letter-spacing: .05em;
+	font-family: 'Noto Serif', 'Noto Serif JP', serif;
+	color: $color-text-main;
+}
+
+img {
+	vertical-align: bottom;
+	width: 100%;
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	filter: brightness(90%) contrast(120%);
+	transition: .3s;
+}
+
+/* レイアウト */
+.section-inner {
+	width: min(92%, 1200px);
+	margin: auto;
+
+	&--small {
+		width: min(100%, 1000px);
+	}
+}
+
+section:not(:first-of-type) {
+	margin-top: 100px;
+}
+
+/* 共通コンポーネント */
+.noscroll {
+	overflow: hidden;
+}
+
+.section {
+	&__title {
+		@include variable-text(4, 9, 1440);
+		font-weight: bold;
+
+		&::after {
+			content: "";
+			display: inline-block;
+			vertical-align: middle;
+			margin-left: 1em;
+			width: 100px;
+			height: 3px;
+			background-color: $color-black;
+
+			@include mq-desktop {
+				width: 200px;
+			}
+		}
+
+		&--right {
+			text-align: right;
+		}
+
+		&--white {
+			color: $color-white;
+
+			&::after {
+				background-color: $color-white;
+			}
+
+		}
+	}
+}
+
+.section-content {
+	margin: 80px 0 40px;
+
+	@include mq-desktop {
+		margin: 80px 0 80px;
+	}
+}
+
+.section-title-bottom {
+	@include variable-text(4, 9, 1440);
+	font-weight: bold;
+	color: $color-text-main;
+	opacity: .5;
+
+	&--right {
+		text-align: right;
+	}
+}
+
+.link-btn {
+	display: inline-block;
+	text-decoration: none;
+	background-color: #F7D43F;
+	border-radius: 30px;
+	padding: 19px 84px;
+	transition: .3s;
+}
+
+.sp-br::before {
+	content: "\A";
+	white-space: pre;
+
+	@include mq-desktop {
+		content: ""
+	}
+}
+
+/* --------------------------------- */
+/* header */
+/* --------------------------------- */
+.header {
+	position: fixed;
+	width: 100%;
+	z-index: 100;
+	height: 75px;
+	background-color: $color-text-main;
+
+	&__title {
+		font-size: 20px;
+		color: $color-white;
+	}
+}
+
+.header-inner {
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.header__nav {
+	display: none;
+	position: fixed;
+	inset: 0;
+	z-index: 100;
+	background-color: $color-black;
+	text-transform: uppercase;
+	overflow: hidden;
+
+	@include mq-desktop {
+		display: block;
+		position: relative;
+		background-color: transparent;
+	}
+}
+
+.nav {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	gap: 40px;
+
+	@include mq-desktop {
+		flex-direction: row;
+	}
+
+	&__link {
+		color: $color-white;
+	}
+}
+
+.nav-btn {
+	width: 25px;
+	height: 16px;
+	cursor: pointer;
+	z-index: 150;
+}
+
+.bar,
+.bar::before,
+.bar::after {
+	content: '';
+	display: block;
+	width: 25px;
+	height: 2px;
+	background: #fff;
+	position: absolute;
+	transition: .3s;
+}
+
+.bar::before {
+	bottom: 8px;
+}
+
+.bar::after {
+	top: 8px;
+}
+
+.bar.close {
+	background-color: rgba(255, 255, 255, 0);
+	transition: .3s;
+}
+
+.bar.close::before {
+	bottom: 0;
+	transform: rotate(45deg);
+	transition: .3s;
+}
+
+.bar.close::after {
+	top: 0;
+	transform: rotate(-45deg);
+	transition: .3s;
+}
+
+@media screen and (min-width: 768px) {
+	.nav-btn {
+		display: none;
+	}
+}
+
+/* ---------------------------------------- */
+/* hero */
+/* ---------------------------------------- */
+.hero {
+	// margin-top: -75px;
+	height: 100vh;
+	background: url(../img/fv-bgi_01@2x.jpg) no-repeat center center / cover;
+	display: grid;
+	place-items: center;
+
+	@include mq-desktop {
+		display: inherit;
+		position: relative;
+	}
+}
+
+.copy {
+	color: #fff;
+	text-align: center;
+
+	@include mq-desktop {
+		text-align: inherit;
+		position: absolute;
+		top: 50%;
+	}
+
+	&__main {
+		@include variable-text(3.7, 7, 1440);
+		font-weight: bold;
+		margin-bottom: 60px;
+	}
+
+	&__sub {
+		@include variable-text(3, 4, 1440);
+		font-weight: bold;
+	}
+}
+
+/* ---------------------------------------- */
+/* concept */
+/* ---------------------------------------- */
+.section__title--left {
+	text-align-last: left;
+}
+
+.concept-copy {
+	@include variable-text(2, 3, 1440);
+	font-weight: bold;
+	text-align: center;
+	margin-top: 100px;
+}
+
+.media {
+	margin: 30px 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+
+	@include mq-desktop {
+		flex-direction: row;
+		justify-content: space-between;
+		gap: clamp(30px, 8.3vw, 120px);
+	}
+
+	&__text {
+		flex: 1;
+	}
+
+	&__img {
+		flex: 1;
+		aspect-ratio: 8/5;
+		// width: min(100%, 440px);
+		// height: 240px;
+		// background: url(../img/concept-image@2x.jpg) no-repeat center center / cover;
+	}
+}
+
+/* ---------------------------------------- */
+/* works */
+/* ---------------------------------------- */
+
+.works {
+	padding: 100px 0;
+	background: url(../img/works-bgi@2x.jpg) no-repeat center center / cover;
+}
+
+.works-list {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+
+	@include mq-desktop {
+		flex-direction: row;
+		gap: 20px;
+	}
+}
+
+.works-item {
+	flex: 1;
+
+	&__img {
+		aspect-ratio: 8/5;
+	}
+
+	&__text {
+		padding: 1em;
+		background-color: #fff;
+	}
+}
+
+/* ---------------------------------------- */
+/* service */
+/* ---------------------------------------- */
+.service {
+	overflow: hidden;
+}
+
+.service-card {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+	margin: 0 calc(50% - 50vw);
+	width: 100vw;
+
+	@include mq-desktop {
+		flex-direction: row;
+		gap: 0;
+	}
+
+	&__item {
+		display: grid;
+		place-items: center;
+		height: 250px;
+		transition: .3s;
+
+		&:first-child {
+			background: url("../img/service-img01@2x.jpg") no-repeat center center / cover;
+		}
+
+		&:nth-child(2) {
+			background: url("../img/service-img02@2x.jpg") no-repeat center center / cover;
+		}
+
+		&:last-child {
+			background: url("../img/sevice-img03@2x.jpg") no-repeat center center / cover;
+		}
+
+		@include mq-desktop {
+			flex: 1;
+			height: 320px;
+		}
+
+		&:hover {
+			filter: brightness(70%) contrast(120%);
+			transition: .3s;
+		}
+	}
+}
+
+.service-card__item a {
+	color: #fff;
+}
+
+/* ---------------------------------------- */
+/* contact */
+/* ---------------------------------------- */
+.contact {
+	background: url("../img/contact-bgi@2x.jpg") no-repeat center center / cover;
+	padding: 40px 0;
+
+	@include mq-desktop {
+		padding: 110px 0 70px;
+	}
+}
+
+.contact-content {
+	text-align: center;
+
+	&__text {
+		margin-bottom: 30px;
+		text-align: center;
+		color: #fff;
+
+		@include mq-desktop {
+			margin-bottom: 40px;
+		}
+	}
+}
+
+/* ---------------------------------------- */
+/* footer */
+/* ---------------------------------------- */
+.footer {
+	padding: 30px 0;
+	text-align: center;
+}
